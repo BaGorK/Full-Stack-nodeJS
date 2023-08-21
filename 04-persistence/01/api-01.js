@@ -28,16 +28,20 @@ const listProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res, next) => {
-  const product = await Products.createProduct(req.body);
+  const product = await Products.create(req.body);
   res.json(product);
 };
 
 const editProduct = async (req, res, next) => {
-  res.json(req.body);
+  const product = await Products.edit(req.params.id, req.body);
+
+  res.json(product);
 };
 
 const deleteProduct = async (req, res, next) => {
-  res.json(req.body);
+  await Products.remove(req.params.id);
+
+  res.json({ success: true });
 };
 
 module.exports = {
