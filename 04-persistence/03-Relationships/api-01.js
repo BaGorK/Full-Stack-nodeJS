@@ -1,5 +1,5 @@
-const Products = require('./modules/products');
-const Orders = require('./modules/orders');
+const Products = require('./models/products');
+const Orders = require('./models/orders');
 
 const getProduct = async (req, res, next) => {
   const { id } = req.params;
