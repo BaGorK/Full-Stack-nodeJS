@@ -1,9 +1,9 @@
-
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 
 const autoCatch = require('./lib/auto-catch');
+const Users = require('./models/user');
 
 const jwtSecret = process.env.JWT_SECRET;
 const adminPassword = process.env.ADMIN_PASSWORD;
@@ -51,11 +51,32 @@ async function verify(jwtString = '') {
   }
 }
 
+// function adminStrategy() {
+//   return new Strategy((username, password, cb) => {
+//     const isAdmin = username === 'admin' && password === adminPassword;
+//     if (isAdmin) return cb(null, { username: 'admin' });
+
+//     cb(null, false);
+//   });
+// }
+
+/*
+We need to change our strategy so that we use the users.js module instead of only checking if the
+request is correct for the admin
+*/
 function adminStrategy() {
-  return new Strategy((username, password, cb) => {
+  return new Strategy(async function (username, password, cb) {
     const isAdmin = username === 'admin' && password === adminPassword;
     if (isAdmin) return cb(null, { username: 'admin' });
 
-    cb(null, false);
+    try {
+      const user = await Users.get(username);
+      if (!user) return cb(null, false);
+
+      const isUser = await bcrypt.compare(password, user.password);
+      if (isUser) return cb(null, { username: user.username });
+    } catch (err) {
+      cb(null, false);
+    }
   });
 }
