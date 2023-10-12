@@ -10,6 +10,7 @@ http
     if (req.url === '/json') return responseJSON(req, res);
     if (req.url.match(/^\/echo/)) return respondEcho(req, res);
     if (req.url.match(/^\/static/)) return respondStatic(req, res);
+    if (req.url === '/api') return resopondHtml(req, res);
 
     respondNotFound(req, res);
   })
@@ -17,8 +18,15 @@ http
     console.log('server is listening...');
   });
 
-// listener functions
+// prettier-ignore
+const dataHtml = fs.readFileSync(`${__dirname}/public/index.html`, 'utf-8');
+// console.log(data);
+function resopondHtml(req, res) {
+  res.writeHead(200, { 'Content-type': 'text/html' });
+  res.end(dataHtml);
+}
 
+// listener functions
 const responseText = (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end('some text');

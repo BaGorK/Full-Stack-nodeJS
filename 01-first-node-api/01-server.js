@@ -1,5 +1,5 @@
-// CREATE THE ABSOLUTE MINIMUM NODEJS SERVER
 const http = require('http');
+const url = require('url');
 
 const PORT = process.env.PORT || 1335;
 
@@ -10,11 +10,13 @@ const PORT = process.env.PORT || 1335;
 const server = http.createServer((req, res) => {
   //   res.setHeader('Content-Type', 'application/json');
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  console.log(req.url);
+  console.log(req.url); // full pathname with the queries like  /products?id=4;
+  console.log(url.parse(req.url, true)); 
+
   res.end(
     JSON.stringify({
-      name: 'edmealem',
-      email: 'edmealem@gmail.com',
+      name: 'Edmealem',
+      email: 'bagor@gmail.com',
     })
   );
 });

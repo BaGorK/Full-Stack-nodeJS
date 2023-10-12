@@ -5,16 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        html {
+            font-size: 62.5%;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0;
+            background-image: linear-gradient(to top left, rgb(139, 99, 184), rgb(8, 241, 40));
+        }
+
+        div.container {
+            position: relative;
+            height: 100vh;
+        }
+
+        h1 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 40px;
+            text-transform: uppercase;
+            padding: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div style="width: 100%; display: block">
-        <figure style="margin: 7% auto;">
-            <img src="img.jpg" alt="" width='60%'>
-            <figcaption style="text-align: center;">
-                <b>Edmealem.k</b> a student at bdu.
-            </figcaption>
-        </figure>
+    <div class="container">
+        <h1>hello MAN!</h1>
     </div>
 </body>
 
